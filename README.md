@@ -32,6 +32,7 @@ This function ensures that players can only choose valid positions on the board.
 This part of the Tic-Tac-Toe game code handles checking for a win and the main game loop. Here’s a detailed explanation:
 
 ![image](https://github.com/reigen88/Practice-Tic-Tac-Toe/assets/161708406/c6905143-01bb-4f74-a5d0-ecc4cb05be1a)
+
 These lines are part of a function that checks if a player has won the game.
 It specifically checks for two diagonal win conditions:
 From top-left to bottom-right (board[0][0], board[1][1], board[2][2]).
