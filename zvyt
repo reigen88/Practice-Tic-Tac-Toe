@@ -1,0 +1,114 @@
+Підключення бібліотеки: #include <iostream>
+Ця частина коду підключає бібліотеку iostream, яка використовується для введення та виведення даних у програмі.
+
+Використання простору імен: using namespace std;
+
+Це дозволяє використовувати всі об'єкти та функції з простору імен std без необхідності кожного разу писати std:: перед ними.
+
+Функція для відображення дошки гри: 
+void drawBoard(char board[3][3]) 
+{ 
+    cout << "-------------\n"; 
+    for (int i = 0; i < 3; i++) { 
+        cout << "| "; 
+        for (int j = 0; j < 3; j++) { 
+            cout << board[i][j] << " | "; 
+        } 
+        cout << "\n-------------\n"; 
+    } 
+}
+Мета: Відобразити поточний стан гри на дошці.
+Вхідний параметр: board - двовимірний масив символів розміром 3x3, що представляє дошку гри.
+Виведення: Відображення дошки з горизонтальними і вертикальними розділювальними лініями.
+
+Перевірка виграшу: 
+bool checkWin(char board[3][3], char player) 
+{ 
+    for (int i = 0; i < 3; i++) { 
+        if (board[i][0] == player && board[i][1] == player 
+            && board[i][2] == player) 
+            return true; 
+        if (board[0][i] == player && board[1][i] == player 
+            && board[2][i] == player) 
+            return true; 
+    } 
+    if (board[0][0] == player && board[1][1] == player 
+        && board[2][2] == player) 
+        return true; 
+    if (board[0][2] == player && board[1][1] == player 
+        && board[2][0] == player) 
+        return true; 
+    return false; 
+}
+Мета: Перевірити, чи виграв один з гравців.
+Вхідні параметри: board - двовимірний масив символів 3x3, player - символ гравця ('X' або 'O').
+Повертає: true якщо гравець виграв, інакше false.
+Логіка: Перевірка рядків, стовпців та діагоналей на наявність трьох однакових символів гравця.
+
+Основна функція програми:
+int main() 
+{  
+    char board[3][3] = { { ' ', ' ', ' ' }, 
+                        { ' ', ' ', ' ' }, 
+                        { ' ', ' ', ' ' } }; 
+    char player = 'X'; 
+    int row, col; 
+    int turn; 
+
+    cout << "Welcome to Tic-Tac-Toe!\n"; 
+
+    for (turn = 0; turn < 9; turn++) {  
+        drawBoard(board); 
+
+        while (true) { 
+            cout << "Player " << player 
+                << ", enter row (0-2) and column (0-2): "; 
+            cin >> row >> col; 
+
+            if (board[row][col] != ' ' || row < 0 || row > 2 
+                || col < 0 || col > 2) { 
+                cout << "Invalid move. Try again.\n"; 
+            } 
+            else { 
+                break; 
+            } 
+        } 
+
+        board[row][col] = player; 
+
+        if (checkWin(board, player)) { 
+            drawBoard(board); 
+            cout << "Player " << player << " wins!\n"; 
+            break; 
+        } 
+
+        player = (player == 'X') ? 'O' : 'X'; 
+    } 
+
+    drawBoard(board); 
+
+    if (turn == 9 && !checkWin(board, 'X') 
+        && !checkWin(board, 'O')) { 
+        cout << "It's a draw!\n"; 
+    } 
+
+    return 0; 
+}
+
+Ініціалізація дошки: char board[3][3] створює порожню дошку 3x3.
+
+Ініціалізація гравця: char player = 'X' початковий гравець - 'X'.
+
+Привітання гравців: cout << "Welcome to Tic-Tac-Toe!\n" виводить привітання.
+
+Головний цикл гри:
+    -Кількість ходів: for (turn = 0; turn < 9; turn++).
+    -Виведення дошки: Викликається drawBoard(board).
+    -Введення ходів гравця:
+      -Запит на введення рядка та стовпчика: cin >> row >> col.
+      -Перевірка на валідність ходу: if (board[row][col] != ' ' || row < 0 || row > 2 || col < 0 || col > 2).
+    -Запис ходу: board[row][col] = player.
+    -Перевірка виграшу: Викликається checkWin(board, player).
+    -Зміна гравця: player = (player == 'X') ? 'O' : 'X'.
+Перевірка на нічию: Якщо всі 9 ходів зроблені і немає переможця, виводиться повідомлення про нічию.
+
